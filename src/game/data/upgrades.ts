@@ -27,7 +27,7 @@ export const RUN_UPGRADES: UpgradeDef[] = [
     name: 'Lucky Polish',
     description:
       'Shifts symbol weights toward rewarding symbols. Each ticket has its own luck cap.',
-    baseCost: 10,
+    baseCost: 11,
     growth: 1.6,
     maxLevel: 30,
     category: 'luck',
@@ -57,7 +57,7 @@ export const RUN_UPGRADES: UpgradeDef[] = [
     id: 'buyer',
     name: 'Auto-Buyer Arm',
     description: 'A mechanical arm that buys your selected ticket on a timer.',
-    baseCost: 300,
+    baseCost: 120,
     growth: 2.0,
     maxLevel: 15,
     category: 'automation',
@@ -70,7 +70,7 @@ export const RUN_UPGRADES: UpgradeDef[] = [
     id: 'scratcher',
     name: 'Scratcher Drum',
     description: 'A rotating drum that scratches queued cards for you.',
-    baseCost: 70,
+    baseCost: 55,
     growth: 2.0,
     maxLevel: 15,
     category: 'automation',
@@ -230,7 +230,7 @@ export function startingCash(capitalLevel: number): number {
 }
 
 /** Gross winnings in a run required before prestige becomes available. */
-export const PRESTIGE_REQUIREMENT = 15000000;
+export const PRESTIGE_REQUIREMENT = 17000000;
 
 /** Divisor in the Blueprint award formula. */
 export const BLUEPRINT_DIVISOR = 1500000;

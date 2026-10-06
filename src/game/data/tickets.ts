@@ -39,8 +39,8 @@ export const COLLECTIONS: CollectionDef[] = [
     id: 'copper',
     name: 'Copper Foundry',
     tagline: 'Hot metal, bright seams, bigger stakes.',
-    unlockWinnings: 1000,
-    unlockCards: 180,
+    unlockWinnings: 2400,
+    unlockCards: 280,
     accent: '#c97b4a',
   },
   {
@@ -235,12 +235,16 @@ const MATCH_RULES = [
   'Scratch all nine spaces to reveal a 3×3 grid.',
   'Matches count ANYWHERE on the grid — position and lines do not matter.',
   'Every symbol appearing three or more times pays out, and multiple winning groups are added together.',
-  'Bigger groups multiply that symbol’s value: 3→×1, 4→×2.5, 5→×6, 6→×15, 7→×40, 8→×100, 9→×250.',
+  // Derived from MATCH_GROUP_MULTIPLIER so the published rules can never drift
+  // away from the configuration actually used to pay the card out.
+  `Bigger groups multiply that symbol’s value: ${Object.entries(MATCH_GROUP_MULTIPLIER)
+    .map(([size, mult]) => `${size}→×${mult}`)
+    .join(', ')}.`,
   'This ticket can never pay less than ¤0.',
 ];
 
 const TRAIL_RULES = [
-  'Scratch six spaces along the trail.',
+  'Scratch all six spaces along the trail.',
   'Payout = (sum of all coin values) × (product of all multiplier spaces) × ticket cost.',
   'Spaces with no coin and no multiplier simply add nothing.',
   'There are no hidden penalties: this ticket can never pay less than ¤0.',

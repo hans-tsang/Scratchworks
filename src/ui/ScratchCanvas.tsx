@@ -93,7 +93,7 @@ export function ScratchCanvas({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const observer = new ResizeObserver(() => {
+    const repaint = () => {
       paintFoil();
       // Re-apply already scratched cells after a resize.
       const ctx = canvas.getContext('2d');
@@ -112,7 +112,14 @@ export function ScratchCanvas({
         }
       }
       ctx.globalCompositeOperation = 'source-over';
-    });
+    };
+    // ResizeObserver is not available in every environment (older browsers,
+    // server-side rendering, tests), so fall back to window resize events.
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', repaint);
+      return () => window.removeEventListener('resize', repaint);
+    }
+    const observer = new ResizeObserver(repaint);
     observer.observe(canvas);
     return () => observer.disconnect();
   }, [paintFoil, revealed]);

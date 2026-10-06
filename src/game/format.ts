@@ -21,7 +21,9 @@ export const MAX_CURRENCY = 1e15;
 
 /** Clamps a value into a finite, non-NaN, bounded range. */
 export function clampCurrency(value: number): number {
-  if (!Number.isFinite(value)) return 0;
+  if (Number.isNaN(value) || typeof value !== 'number') return 0;
+  if (value === Number.POSITIVE_INFINITY) return MAX_CURRENCY;
+  if (value === Number.NEGATIVE_INFINITY) return -MAX_CURRENCY;
   if (value > MAX_CURRENCY) return MAX_CURRENCY;
   if (value < -MAX_CURRENCY) return -MAX_CURRENCY;
   return value;
