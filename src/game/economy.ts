@@ -106,7 +106,7 @@ export function canBuy(state: GameState, ticketId: string, options: BuyOptions =
 /** Buys a ticket: subtracts the cost once and rolls the outcome once. */
 export function buyCard(state: GameState, ticketId: string, options: BuyOptions = {}): TxResult<Card> {
   const check = canBuy(state, ticketId, options);
-  if (!check.ok) return check as TxResult<Card>;
+  if (!check.ok) return check as TxResult<never>;
 
   const ticket = getTicket(ticketId);
   const rng = options.rng ?? rngFor(state);
@@ -305,7 +305,7 @@ export function canBuyTicketLevel(state: GameState, ticketId: string): TxResult 
 
 export function buyTicketLevel(state: GameState, ticketId: string): TxResult<number> {
   const check = canBuyTicketLevel(state, ticketId);
-  if (!check.ok) return check as TxResult<number>;
+  if (!check.ok) return check as TxResult<never>;
   const ticket = getTicket(ticketId);
   const level = ticketLevel(state, ticketId);
   state.cash = clampCurrency(round2(state.cash - ticketLevelCost(ticket.cost, level)));
